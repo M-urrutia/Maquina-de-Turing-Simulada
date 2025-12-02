@@ -1,0 +1,73 @@
+[gd_scene load_steps=8 format=3 uid="uid://dsrby7ggiucnn"]
+
+[ext_resource type="Script" uid="uid://brnkubuvw84fj" path="res://jeje.gd" id="1_w2van"]
+[ext_resource type="Script" uid="uid://cyt7b7lojxxms" path="res://camara.gd" id="3_ylpb0"]
+[ext_resource type="PackedScene" uid="uid://bhs2nmhm3qgab" path="res://Tabla.tscn" id="4_brl7w"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_525ds"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ca6ie"]
+
+[sub_resource type="GDScript" id="GDScript_ca6ie"]
+script/source = "extends Area3D
+
+var body_inside: RigidBody3D = null
+
+func _ready():
+	body_entered.connect(_on_enter)
+	body_exited.connect(_on_exit)
+
+func _on_enter(body):
+	if body is RigidBody3D:
+		body_inside = body
+
+func _on_exit(body):
+	if body == body_inside:
+		body_inside = null
+
+func _process(delta):
+	if Input.is_action_just_pressed(\"cambiar_estado\"):
+		if body_inside:
+			body_inside.teletransportar_atras()
+"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ylpb0"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.811409, 0, 0)
+script = ExtResource("1_w2van")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(0.285, 0, 0, 0, 0.315, 0, 0, 0, 0.695, 0, 0, 0)
+mesh = SubResource("BoxMesh_525ds")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(0.285, 0, 0, 0, 0.315, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_ca6ie")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera", "light")]
+transform = Transform3D(0.946818, 0, 0.32177, 0, 1, 0, -0.32177, 0, 0.946818, 1.12757, 0, 1.87116)
+motion_mode = 1
+script = ExtResource("3_ylpb0")
+camera = NodePath("Camera3D")
+light = NodePath("SpotLight3D")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="CharacterBody3D"]
+light_energy = 3.945
+light_indirect_energy = 3.845
+light_volumetric_fog_energy = 3.82
+
+[node name="Area3D" type="Area3D" parent="CharacterBody3D"]
+script = SubResource("GDScript_ca6ie")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D/Area3D"]
+transform = Transform3D(0.5, 0, 0, 0, -2.52433e-07, -0.5, 0, 5.775, -2.18557e-08, 0, 0, -0.5)
+shape = SubResource("CapsuleShape3D_ylpb0")
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="Tabla" parent="Node3D" instance=ExtResource("4_brl7w")]

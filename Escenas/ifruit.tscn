@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgy72r03frx8a"]
+
+[ext_resource type="PackedScene" uid="uid://but80h68jyyfl" path="res://Escenas/Adafruit 1-Half Breadboard.gltf" id="1_6af8a"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Adafruit 1-Half Breadboard" parent="." instance=ExtResource("1_6af8a")]
+transform = Transform3D(0.01, 0, 0, 0, -4.37114e-10, -0.01, 0, 0.01, -4.37114e-10, 0, 0, 0)

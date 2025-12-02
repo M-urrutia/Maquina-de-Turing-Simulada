@@ -1,0 +1,79 @@
+[gd_scene load_steps=10 format=3 uid="uid://bhs2nmhm3qgab"]
+
+[ext_resource type="Script" uid="uid://c0e8n05nvcnbp" path="res://Codigos/rigid_body_3d_2.gd" id="1_dvmsa"]
+[ext_resource type="Material" uid="uid://oc0obrnp5keh" path="res://Texturas y Materiales/Carton Piedra.tres" id="1_srq6i"]
+[ext_resource type="Material" uid="uid://cdlyev75fp2" path="res://Texturas y Materiales/Madera Clara.tres" id="3_dmvo4"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_875ch"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_dvmsa"]
+lightmap_size_hint = Vector2i(14, 21)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_875ch"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dvmsa"]
+size = Vector3(1, 1.99707, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cm3bp"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0dp6q"]
+
+[node name="Tabla" type="Node3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Frame" type="RigidBody3D" parent="."]
+gravity_scale = 0.0
+
+[node name="Multicaras" type="MultiMeshInstance3D" parent="Frame"]
+multimesh = SubResource("MultiMesh_875ch")
+
+[node name="cara 1" type="MeshInstance3D" parent="Frame/Multicaras"]
+transform = Transform3D(0.02, 0, 0, 0, 0.2, 0, 0, 0, 0.8, 0.15, 0, 0)
+material_override = ExtResource("1_srq6i")
+mesh = SubResource("BoxMesh_dvmsa")
+
+[node name="cara2" type="MeshInstance3D" parent="Frame/Multicaras"]
+transform = Transform3D(0.02, 0, 0, 0, 0.2, 0, 0, 0, 0.8, -0.15, 0, 0)
+material_override = ExtResource("1_srq6i")
+mesh = SubResource("BoxMesh_dvmsa")
+
+[node name="cara3" type="MeshInstance3D" parent="Frame/Multicaras"]
+transform = Transform3D(-8.74228e-10, 0, 0.3, 0, 0.2, 0, -0.02, 0, -1.31134e-08, 0, 0, 0.39)
+material_override = ExtResource("1_srq6i")
+mesh = SubResource("BoxMesh_dvmsa")
+
+[node name="cara4" type="MeshInstance3D" parent="Frame/Multicaras"]
+transform = Transform3D(-8.74228e-10, 0, 0.3, 0, 0.2, 0, -0.02, 0, -1.31134e-08, 0, 0, -0.39)
+material_override = ExtResource("1_srq6i")
+mesh = SubResource("BoxMesh_dvmsa")
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+gravity_scale = 0.0
+custom_integrator = true
+script = ExtResource("1_dvmsa")
+
+[node name="Colision de la tablita" type="CollisionShape3D" parent="RigidBody3D2"]
+transform = Transform3D(0.3, 0, 0, 0, 0.02, 0, 0, 0, 0.4, 0, 0, 0)
+shape = SubResource("BoxShape3D_875ch")
+
+[node name="Colision de los tubos" type="CollisionShape3D" parent="RigidBody3D2"]
+transform = Transform3D(3.82137e-17, 4.37114e-08, 0.02, 0.02, -4.37114e-08, 3.30872e-23, 8.74228e-10, 1, -8.74228e-10, -2.1342e-11, 2.13429e-11, -0.000488281)
+shape = SubResource("BoxShape3D_dvmsa")
+
+[node name="Visual de los tubos" type="MeshInstance3D" parent="RigidBody3D2"]
+transform = Transform3D(3.82137e-17, 4.37114e-08, 0.02, 0.02, -4.37114e-08, 2.82343e-23, 8.74228e-10, 1, -8.74228e-10, 0, 0, 0)
+material_override = ExtResource("3_dmvo4")
+mesh = SubResource("CylinderMesh_cm3bp")
+skeleton = NodePath("")
+
+[node name="Visual de la tabla" type="MeshInstance3D" parent="RigidBody3D2"]
+transform = Transform3D(0.3, 0, 1.77636e-15, 0, 0.02, 0, 0, 0, 0.4, 0, 0, 0)
+material_override = ExtResource("1_srq6i")
+mesh = SubResource("BoxMesh_0dp6q")
+skeleton = NodePath("")

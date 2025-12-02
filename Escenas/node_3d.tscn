@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://da1g78v35iiky"]
+
+[ext_resource type="PackedScene" uid="uid://ctokdjb6tvg0o" path="res://Escenas/10301_para_engranajes_1.gltf" id="1_a202f"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="10301_para_engranajes_1" parent="." instance=ExtResource("1_a202f")]
+transform = Transform3D(0.046, 0, 0, 0, 0.046, 0, 0, 0, 0.046, 0, 0, 0)
